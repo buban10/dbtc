@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pre-Enrollment Form (PH Address via API)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  :root{--green1:#006400;--green2:#388e3c;}
+  body{font-family:'Roboto',sans-serif;background:linear-gradient(135deg,#cbe6c7 0%,#a8d5a3 100%);margin:0;padding:20px;}
+  .form-wrapper{max-width:900px;margin:auto;background:#fff;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.15);} 
+  .form-wrapper h1{text-align:center;color:#1a1a1a;margin-bottom:10px;font-size:2.2rem;font-weight:700;}
+  .subtitle{text-align:center;font-style:italic;margin-bottom:30px;color:#666;font-size:1.05rem;}
+  .section-header{background:linear-gradient(135deg,var(--green1) 0%,var(--green2) 100%);color:#fff;padding:14px 20px;margin:30px -40px 20px -40px;font-size:1.1rem;font-weight:600;display:flex;align-items:center;gap:10px;border-radius:12px;}
+  label{display:block;font-weight:600;margin:16px 0 8px;color:#333;}
+  input,select{width:100%;padding:12px 14px;border:2px solid #e0e0e0;border-radius:8px;font-size:16px;background:#fff;}
+  input:focus,select:focus{outline:none;border-color:var(--green1);box-shadow:0 0 0 3px rgba(0,100,0,.08);} 
+  .grid{display:grid;gap:20px;} 
+  .grid-4{grid-template-columns:repeat(4,1fr);} 
+  .grid-3{grid-template-columns:repeat(3,1fr);} 
+  .grid-2{grid-template-columns:repeat(2,1fr);} 
+  .button-group{display:flex;gap:12px;justify-content:center;margin-top:34px;} 
+  button{background:linear-gradient(135deg,#388e3c 0%,#2e7d32 100%);color:#fff;border:0;padding:14px 24px;font-weight:700;border-radius:25px;cursor:pointer}
+  .reset-btn{background:linear-gradient(135deg,#757575 0%,#616161 100%);} 
+  .strand-option{border:2px solid #e0e0e0;border-radius:10px;padding:12px;margin-bottom:10px;cursor:pointer}
+  .strand-option:hover{border-color:var(--green1);background:#f8fff8}
+  .strand-option.selected{border-color:var(--green1);background:#e8f5e8}
+  .strand-title{font-weight:700;color:var(--green1)}
+  @media (max-width:900px){.grid-4{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}}
+  @media (max-width:560px){.grid-4,.grid-3{grid-template-columns:1fr}}
+  .note{font-size:.9rem;color:#444;background:#f4fff4;border-left:4px solid var(--green2);padding:10px 12px;border-radius:8px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="form-wrapper">
+  <h1>Pre-Enrollment Form</h1>
+  <p class="subtitle">Please fill out all the required fields to complete your pre-enrollment application.</p>
+
+  <form id="preEnrollmentForm">
+
+    <!-- Personal Information -->
+    <div class="section-header"><i class="fas fa-user"></i> Personal Information</div>
+    <div class="grid grid-4">
+      <div>
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" name="lastName" required>
+      </div>
+      <div>
+        <label for="firstName">First Name *</label>
+        <input type="text" id="firstName" name="firstName" required>
+      </div>
+      <div>
+        <label for="middleName">Middle Name</label>
+        <input type="text" id="middleName" name="middleName">
+      </div>
+      <div>
+        <label for="suffix">Suffix</label>
+        <input type="text" id="suffix" name="suffix">
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div>
+        <label for="gender">Gender *</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select Gender</option>
+          <option>Male</option><option>Female</option><option>Prefer not to say</option>
+        </select>
+      </div>
+      <div>
+        <label for="birthDate">Birth Date *</label>
+        <input type="date" id="birthDate" name="birthDate" required>
+      </div>
+      <div>
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" readonly>
+      </div>
+    </div>
+
+    <!-- Address Information -->
+    <div class="section-header"><i class="fas fa-map-marker-alt"></i> Address Information</div>
+    <div class="grid grid-4">
+      <div>
+        <label for="province">Province *</label>
+        <select id="province" required>
+          <option value="">Select Province</option>
+        </select>
+      </div>
+      <div>
+        <label for="city">City/Municipality *</label>
+        <select id="city" required>
+          <option value="">Select Municipality</option>
+        </select>
+      </div>
+      <div>
+        <label for="barangay">Barangay *</label>
+        <select id="barangay" required>
+          <option value="">Select Barangay</option>
+        </select>
+      </div>
+      <div>
+        <label for="address">Bldg./House No., Street *</label>
+        <input type="text" id="address" name="address" required>
+      </div>
+    </div>
+    <div>
+      <label for="region">Region *</label>
+      <select id="region" name="region" required>
+        <option value="">Select Region</option>
+        <option value="Region I - Ilocos Region">Region I - Ilocos Region</option>
+        <option value="Region II - Cagayan Valley">Region II - Cagayan Valley</option>
+        <option value="Region III - Central Luzon">Region III - Central Luzon</option>
+        <option value="Region IV-A - CALABARZON">Region IV-A - CALABARZON</option>
+        <option value="MIMAROPA Region">MIMAROPA Region</option>
+        <option value="Region V - Bicol Region">Region V - Bicol Region</option>
+        <option value="Region VI - Western Visayas">Region VI - Western Visayas</option>
+        <option value="Region VII - Central Visayas">Region VII - Central Visayas</option>
+        <option value="Region VIII - Eastern Visayas">Region VIII - Eastern Visayas</option>
+        <option value="Region IX - Zamboanga Peninsula">Region IX - Zamboanga Peninsula</option>
+        <option value="Region X - Northern Mindanao">Region X - Northern Mindanao</option>
+        <option value="Region XI - Davao Region">Region XI - Davao Region</option>
+        <option value="Region XII - SOCCSKSARGEN">Region XII - SOCCSKSARGEN</option>
+        <option value="Region XIII - Caraga">Region XIII - Caraga</option>
+        <option value="NCR - National Capital Region">NCR - National Capital Region</option>
+        <option value="CAR - Cordillera Administrative Region">CAR - Cordillera Administrative Region</option>
+        <option value="BARMM - Bangsamoro Autonomous Region in Muslim Mindanao">BARMM - Bangsamoro Autonomous Region in Muslim Mindanao</option>
+      </select>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="section-header"><i class="fas fa-phone"></i> Contact Information</div>
+    <div class="grid grid-2">
+      <div>
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="phone">Phone *</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+    </div>
+
+    <!-- Educational Background -->
+    <div class="section-header"><i class="fas fa-graduation-cap"></i> Educational Background</div>
+    <div class="grid grid-2">
+      <div>
+        <label for="lastSchool">Last School Attended *</label>
+        <input type="text" id="lastSchool" name="lastSchool" required>
+      </div>
+      <div>
+        <label for="yearAttended">Year Attended *</label>
+        <input type="text" id="yearAttended" name="yearAttended" placeholder="e.g., 2022-2024" required>
+      </div>
+    </div>
+
+    <!-- Chosen Strand -->
+    <div class="section-header"><i class="fas fa-book"></i> Chosen Strand</div>
+    <fieldset>
+      <legend>Select Your Preferred Program *</legend>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="TVL CP NC II" required> <span class="strand-title">TVL CP NC II</span></label>
+      </div>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="TVL CSS NC II"> <span class="strand-title">TVL CSS NC II</span></label>
+      </div>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="TVL FBS NC II"> <span class="strand-title">TVL FBS NC II</span></label>
+      </div>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="TVL EPAS NC II"> <span class="strand-title">TVL EPAS NC II</span></label>
+      </div>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="GAS"> <span class="strand-title">GAS</span></label>
+      </div>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="HUMSS"> <span class="strand-title">HUMSS</span></label>
+      </div>
+      <div class="strand-option" onclick="selectStrand(this)">
+        <label><input type="radio" name="strand" value="ABM"> <span class="strand-title">ABM</span></label>
+      </div>
+    </fieldset>
+
+    <div class="button-group">
+      <button type="submit"><i class="fas fa-paper-plane"></i> Submit</button>
+      <button type="reset" class="reset-btn"><i class="fas fa-undo"></i> Reset</button>
+    </div>
+  </form>
+</div>
+
+<script>
+// Auto-calc Age
+const birthDateEl = document.getElementById('birthDate');
+const ageEl = document.getElementById('age');
+birthDateEl.addEventListener('change', function(){
+  const d=new Date(this.value); const t=new Date();
+  let age=t.getFullYear()-d.getFullYear();
+  if(t.getMonth()<d.getMonth()||(t.getMonth()===d.getMonth()&&t.getDate()<d.getDate())) age--;
+  ageEl.value = (Number.isFinite(age) && age>=0)?age:'';
+});
+
+// Strand UI
+function selectStrand(el){
+  document.querySelectorAll('.strand-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected'); el.querySelector('input').checked = true;
+}
+
+// PSGC API Integration
+const provinceEl = document.getElementById('province');
+const cityEl = document.getElementById('city');
+const brgyEl = document.getElementById('barangay');
+
+function resetSelect(el, placeholder){
+  el.innerHTML = `<option value="">${placeholder}</option>`;
+}
+
+// Load provinces
+fetch('https://psgc.cloud/api/provinces')
+  .then(res => res.json())
+  .then(data => {
+    data.sort((a,b) => a.name.localeCompare(b.name)).forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.code;             
+      opt.textContent = p.name;       
+      provinceEl.appendChild(opt);
+    });
+  })
+  .catch(err=>{
+    console.error('Failed to load provinces from PSGC API', err);
+    alert('Cannot load provinces from PSGC API. Please check your internet connection.');
+  });
+
+// Load cities on province change
+provinceEl.addEventListener('change', () => {
+  const provCode = provinceEl.value;
+  resetSelect(cityEl, 'Select Municipality');
+  resetSelect(brgyEl, 'Select Barangay');
+  if (!provCode) return;
+
+  fetch(`https://psgc.cloud/api/provinces/${provCode}/cities-municipalities`)
+    .then(res => res.json())
+    .then(cities => {
+      cities.sort((a,b) => a.name.localeCompare(b.name)).forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.code;       
+        opt.textContent = c.name; 
+        cityEl.appendChild(opt);
+      });
+    })
+    .catch(err=>{
+      console.error('Failed to load cities/municipalities', err);
+      alert('Cannot load cities/municipalities from PSGC API.');
+    });
+});
+
+// Load barangays on city change
+cityEl.addEventListener('change', () => {
+  const cityCode = cityEl.value;
+  resetSelect(brgyEl, 'Select Barangay');
+  if (!cityCode) return;
+  fetch(`https://psgc.cloud/api/cities-municipalities/${cityCode}/barangays`)
+    .then(res => res.json())
+    .then(brgys => {
+      brgys.sort((a,b) => a.name.localeCompare(b.name)).forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b.name;       
+        opt.textContent = b.name;
+        brgyEl.appendChild(opt);
+      });
+    })
+    .catch(err=>{
+      console.error('Failed to load barangays', err);
+      alert('Cannot load barangays from PSGC API.');
+    });
+});
+
+// Demo submit
+const formEl = document.getElementById('preEnrollmentForm');
+formEl.addEventListener('submit', function(e){
+  e.preventDefault();
+  alert('Pre-Enrollment Submitted Successfully!');
+});
+</script>
+
+</body>
+</html>
