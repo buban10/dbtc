@@ -2400,6 +2400,99 @@
   margin: 5px 0;
 }
 
+<!-- ✅ FINAL FIX: Clickable Status Buttons + Archive Integration -->
+<style>
+.status-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  margin: 2px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+.status-btn:hover {
+  opacity: 0.9;
+}
+.status-graduated {
+  background-color: #22c55e; /* green */
+}
+.status-transferee {
+  background-color: #3b82f6; /* blue */
+}
+.status-dropped {
+  background-color: #ef4444; /* red */
+}
+.status-btn.active {
+  opacity: 1;
+  box-shadow: 0 0 0 2px #00000020;
+}
+
+/* === MENU HOVER AT ACTIVE (may underline line effect) === */
+.nav-links a,
+.dropbtn {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+/* Hover underline animation */
+.nav-links a::after,
+.dropbtn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background-color: #006400; /* dark green line */
+  transition: width 0.3s ease;
+}
+
+/* Lumalabas ang linya pag hover */
+.nav-links a:hover::after,
+.dropbtn:hover::after {
+  width: 100%;
+}
+
+/* Active underline */
+.nav-links a.active::after,
+.dropbtn.active::after {
+  width: 100%;
+  background-color: #228B22; /* medyo lighter green */
+}
+
+/* For dropdown items (STEM, ABM, HUMSS, GAS, TVL) */
+.dropdown-content a {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.dropdown-content a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background-color: #888; /* gray line */
+  transition: width 0.3s ease;
+}
+
+.dropdown-content a:hover::after,
+.dropdown-content a.active::after {
+  width: 100%;
+  background-color: #333; /* darker gray when active */
+}
+
+</style>
+
 </style> </head>
 <header class="navbar">
 <div class="container">
@@ -2463,7 +2556,7 @@
 <h1>Welcome to DBTC - Gubat, Sorsogon</h1>
 <p>Be Skilled.
         Be DBTCian!</p>
-<a class="btn enroll-now" href="#" onclick="showPage('pre-enrollment')">Register Now!</a>
+<a class="btn enroll-now" href="#" onclick="showPage('admission')">Register Now!</a>
 </div>
 </div>
 </section>
@@ -2897,7 +2990,7 @@ document.getElementById('preEnrollmentForm').addEventListener('submit', function
 <div>
 <label for="firstName">First Name *</label>
 <input id="firstName" name="firstName" required="" type="text"/>
-</div>
+</div>s
 <div>
 <label for="middleName">Middle Name</label>
 <input id="middleName" name="middleName" type="text"/>
@@ -3139,9 +3232,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
-
-
-
 </section>
 <!-- end of pre enrollment form-->
 <section class="section" id="gallery">
@@ -7711,6 +7801,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 </html>
 
